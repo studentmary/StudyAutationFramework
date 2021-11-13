@@ -1,23 +1,33 @@
 package com.yandexMail.Pages;
 
-import com.yandexMail.driverСontainer.elements.InPut;
+import com.yandexMail.elements.InPut;
+import com.yandexMail.elements.Button;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 
 public class LoginPage {
-	private final WebDriver driver;
-	private final By ID_FIELD_LOCATOR = By.xpath("//span//input");
-	private final By PASSWORD_FIELD_LOCATOR = By.xpath("//input[@type='password']");//input[@type='password']
+	private static final By USERNAME_FIELD_LOCATOR = By.xpath("//span//input");
+	private static final By PASSWORD_FIELD_LOCATOR = By.xpath("//input[@type='password']");
+	private static final By SIGN_IN_BUTTON_LOCATOR = By.xpath("//span[text()='Войти']//ancestor::a");
+	private static final By BUTTON_1_LOCATOR = By.xpath("//span[text()='Войти']//ancestor::button");
+	private static final By BUTTON_2_LOCATOR = By.xpath("//button[@type='submit']");
 
-	public LoginPage(WebDriver driver) {
-		this.driver = driver;
+	public static InPut getUserNameField() {
+		return new InPut(USERNAME_FIELD_LOCATOR);
 	}
 
-	public InPut getIdField() {
-		return new InPut(ID_FIELD_LOCATOR, driver);
+	public static InPut getPasswordField() {
+		return new InPut(PASSWORD_FIELD_LOCATOR);
 	}
 
-	public InPut getPasswordField() {
-		return new InPut(PASSWORD_FIELD_LOCATOR, driver);
+	public static Button getSignInButton() {
+		return new Button(SIGN_IN_BUTTON_LOCATOR);
+	}
+
+	public static Button getButton1() {
+		return new Button(BUTTON_1_LOCATOR);
+	}
+
+	public static Button getButton2() {
+		return new Button(BUTTON_2_LOCATOR);
 	}
 }
