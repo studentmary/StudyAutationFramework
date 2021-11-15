@@ -5,9 +5,9 @@ import io.qameta.allure.Step;
 
 public class UserPageHelper {
 
-	@Step("Wait visible  button write")
-	public static void waitVisibleButtonWrite() {
-		Waiter.untilVisible(UserPage.getButtonWrite(), " Button write was not visible");
+	@Step("Wait open user page")
+	public static void waitOpenUserPage() {
+		Waiter.untilVisible(UserPage.getButtonWrite(), " User page was not open");
 	}
 
 	@Step("Click the write button")
@@ -17,17 +17,12 @@ public class UserPageHelper {
 
 	@Step("Wait open letter form")
 	public static void writeNewLetterForm() {
-		UserPage.getMailField();
+		Waiter.untilVisible(UserPage.getMailField(), "Letter form was not open");
 	}
 
 	@Step("Fill mail")
 	public static void fillMail(String mail) {
 		UserPage.getMailField().sendKeys(mail);
-	}
-
-	@Step("Wait topic field")
-	public static void waitTopicField() {
-		UserPage.getTopicField();
 	}
 
 	@Step("Fill topic")
@@ -45,23 +40,50 @@ public class UserPageHelper {
 		UserPage.getAttachFile().sendKeys(file);
 	}
 
+	@Step("Wait placeholder will be invisible")
+	public static void invisiblePlaceholder() {
+		Waiter.untilInVisible(UserPage.getPlaceholder(), " Element wasn't find");
+	}
+
 	@Step("Click the send button")
-	public static void submitSend() {
+	public static void submitSendMail() {
 		UserPage.getButtonSend().click();
 	}
 
-	@Step("Send letter")
-	public static void sendLetter(String mail, String topic, String text) {
-		waitVisibleButtonWrite();
+	//	@Step("Wait letter send")
+//	public static void waitLetterSend() {
+//		Waiter.untilVisible(UserPage.getMailField(), "Letter was not send");
+//	}
+	@Step("Reload user page click button")
+	public static void reloadUserPage() {
+		UserPage.getButtonReloadUserPage().click();
+	}
+
+	@Step("Wait button save on disk will visible")
+	public static void waitButtonSaveOnDisk() {
+		Waiter.untilVisible(UserPage.getButtonSaveOnDisk(), "Button was not visible");
+	}
+
+	@Step("Click the  save on disk button")
+	public static void clickSaveOnDiskButton() {
+		UserPage.getButtonSaveOnDisk().click();
+	}
+
+
+	public static void sendLetter(String mail, String topic, String text, String file) {
+		waitOpenUserPage();
 		submitForm();
 		writeNewLetterForm();
 		fillMail(mail);
-		waitTopicField();
 		fillTopic(topic);
 		fillText(text);
-		attachFile("D://формулы");
-		submitSend();
-
-
+		attachFile(file);
+		invisiblePlaceholder();
+		submitSendMail();
+		//waitLetterSend();
+		reloadUserPage();
+		waitButtonSaveOnDisk();
+		clickSaveOnDiskButton();
 	}
 }
+
