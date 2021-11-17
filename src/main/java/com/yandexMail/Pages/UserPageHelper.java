@@ -42,7 +42,7 @@ public class UserPageHelper {
 
 	@Step("Wait placeholder will be invisible")
 	public static void invisiblePlaceholder() {
-		Waiter.untilInVisible(UserPage.getPlaceholder(), " Element wasn't find");
+		Waiter.untilInVisible(UserPage.getPlaceholder());
 	}
 
 	@Step("Click the send button")
@@ -50,25 +50,49 @@ public class UserPageHelper {
 		UserPage.getButtonSend().click();
 	}
 
-	//	@Step("Wait letter send")
-//	public static void waitLetterSend() {
-//		Waiter.untilVisible(UserPage.getMailField(), "Letter was not send");
-//	}
+	@Step("Wait popup has been visible")
+	public static void waitPopupVisible() {
+		Waiter.untilVisible(UserPage.getPopup(), "Popup has not visible");
+	}
+
+	@Step("Close popup")
+	public static void closePopup() {
+		UserPage.getClosePopup().click();
+	}
+
 	@Step("Reload user page click button")
 	public static void reloadUserPage() {
 		UserPage.getButtonReloadUserPage().click();
 	}
 
-	@Step("Wait button save on disk will visible")
-	public static void waitButtonSaveOnDisk() {
-		Waiter.untilVisible(UserPage.getButtonSaveOnDisk(), "Button was not visible");
+	@Step("Wait letter field has been visible")
+	public static void waitLetterField() {
+		Waiter.untilVisible(UserPage.getLetterFieldVisible(), "Letter field has not visible");
 	}
 
-	@Step("Click the  save on disk button")
+	@Step("Wait and click the button save on disk")
+	public static void waitSaveOnDiskButton() {
+		Waiter.untilVisible(UserPage.getButtonSaveOnDisk(), "Button has not visible");
+	}
+
+	@Step("Wait and click the button save on disk")
 	public static void clickSaveOnDiskButton() {
 		UserPage.getButtonSaveOnDisk().click();
 	}
 
+	@Step("Wait visible download form")
+	public static void visibleDownloadForm() {
+		Waiter.untilVisible(UserPage.getDownloadForm(), "Form has not visible");
+	}
+
+	@Step("Click  button to move disk")
+	public static void clickMoveDisk() {
+		UserPage.getButtonMoveDisk().click();
+	}
+	@Step("Click the button disk")
+	public static void clickDisk() {
+		UserPage.getClickDisk().click();
+	}
 
 	public static void sendLetter(String mail, String topic, String text, String file) {
 		waitOpenUserPage();
@@ -80,10 +104,19 @@ public class UserPageHelper {
 		attachFile(file);
 		invisiblePlaceholder();
 		submitSendMail();
-		//waitLetterSend();
+		waitPopupVisible();
+		closePopup();
 		reloadUserPage();
-		waitButtonSaveOnDisk();
+		waitLetterField();
+		waitSaveOnDiskButton();
 		clickSaveOnDiskButton();
-	}
-}
+		visibleDownloadForm();
+		clickMoveDisk();
+		clickDisk();
 
+
+
+	}
+
+
+}
