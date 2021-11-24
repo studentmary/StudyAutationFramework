@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <filter class="ch.qos.logback.core.filter.EvaluatorFilter">
+            <evaluator class="h.qos.logback.classic.boolex.JaninoEventEvaluator">
+                <expression>return (level > DEBUG);</expression>
+            </evaluator>
+            <OnMisnatch>DENY</OnMisnatch>
+            <OnMatch>ACCEPT</OnMatch>
+        </filter>
+        <encoder>
+            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="FILE" class="ch.qos.logback.classic.sift.SiftingAppender">
+        <discriminator class="utility.logerator.ThreadNameBasedDiscriminator"/>
+        <sift>
+            <appender class="ch.qos.logback.core.FileAppender">
+                <file>logs/app-${threadName}.log</file>
+                <layout class=" ch.qos.logback.classic.PatternLayout ">
+                    <pattern>%d{dd/MM/yyyy HH:mm:ss:sss} | %-5level | %logger{20} | %msg%n%rEx</pattern>
+                </layout>
+            </appender>
+        </sift>
+    </appender>
+
+    <logger name="io.netty" additivity="false">
+        <appender-ref ref="STDOUT"/>
+        <appender-ref ref="FILE"/>
+    </logger>
+
+    <logger name="org.apache.hc.client5" additivity="false">
+        <appender-ref ref="STDOUT"/>
+        <appender-ref ref="FILE"/>
+    </logger>
+
+    <logger name="org.asynchttpclient.netty.request" additivity="false">
+        <appender-ref ref="STDOUT"/>
+        <appender-ref ref="FILE"/>
+    </logger>
+
+    <appender class="ch.qos.logback.core.FileAppender">
+        <file>tests.log</file>
+        <append>true</append>
+        <encoder>
+            <pattern>%d{HH:mm:ss:sss} [%thread] %-5level %logger{35} | %msg%n%</pattern>
+        </encoder>
+    </appender>
+
+    <root level="debug">
+        <appender-ref ref="FILE"/>
+        <appender-ref ref="STDOUT"/>
+    </root>
+</configuration>

@@ -2,11 +2,13 @@ package com.yandexMail.Pages;
 
 import com.yandexMail.driver.Waiter;
 import io.qameta.allure.Step;
+import utility.logerator.Logger;
+
 
 public class LoginPageHelper {
 
-	@Step("Log in to the system")
-	public static void submitForm() {
+	@Step("Enter to system")
+	public static void clickInButtonEnter() {
 		LoginPage.getSignInButton().click();
 	}
 
@@ -15,14 +17,14 @@ public class LoginPageHelper {
 		LoginPage.getUserNameField().sendKeys(username);
 	}
 
-	@Step("Click button_1")
-	public static void submitForm1() {
-		LoginPage.getButton1().click();
+	@Step("Click button")
+	public static void submitForm() {
+		LoginPage.getButton().click();
 	}
 
 	@Step("Wait until open password field")
-	public static void openPasswordField(){
-		Waiter.untilVisible(LoginPage.getPasswordField(),"Password field not find" );
+	public static void openPasswordField() {
+		Waiter.untilVisible(LoginPage.getPasswordField(), "Password field not find");
 	}
 
 	@Step("Fill password")
@@ -30,19 +32,16 @@ public class LoginPageHelper {
 		LoginPage.getPasswordField().sendKeys(password);
 	}
 
-	@Step("Click button_2")
-	public static void submitForm2() {
-		LoginPage.getButton2().click();
-	}
-
 	@Step("Login to application")
 	public static void loginWithCreads(String userName, String password) {
-		submitForm();
+		Logger.getLogger().info("Try to login as {}/{}",userName,password);
+		clickInButtonEnter();
 		fillUsername(userName);
-		submitForm1();
+		submitForm();
 		openPasswordField();
 		fillPassword(password);
-		submitForm2();
+		submitForm();
+		Logger.getLogger().info("User log in the system");
 	}
 
 }

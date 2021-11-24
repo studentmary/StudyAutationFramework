@@ -1,84 +1,46 @@
 package com.yandexMail.Pages;
 
+import com.yandexMail.driver.UiDriver;
 import com.yandexMail.driver.Waiter;
-import com.yandexMail.elements.HtmlElement;
 import io.qameta.allure.Step;
+import org.openqa.selenium.interactions.Actions;
+import utility.logerator.Logger;
 
 public class DiskPageHelper {
 
-	@Step("Wait open disk page")
-	public static void waitUntilOpenDiskPage() {
-		Waiter.untilVisible(DiskPage.getOpenDiskPage(), "Disk page was not opened");
-	}
-
-	@Step("Click  file")
-	public static void clickFile() {
-		DiskPage.getClickFile().getRightClickButton();
-	}
-
-	@Step("Wait open  menu group")
-	public static void waitUntilVisibleOpenMenuGroup() {
-		Waiter.untilVisible(DiskPage.getOpenMenuGroup(), "Menu group has not opened");
-	}
-
-	@Step("Click move button from menu group")
-	public static void ClickMoveButtonFromMenuGroup() {
-		DiskPage.getClickMoveButtonFromMenuGroup().click();
-	}
-
-//	@Step("Wait open list box")
-//	public static void waitUntilVisibleList() {
-//		Waiter.untilVisible(DiskPage.getListBox(), "List box has not opened");
-//	}
-//
-//	@Step("Click move button from list box")
-//	public static void clickMoveButton() {
-//		DiskPage.getClickMoveButtonFromList().click();
-//	}
-
-	@Step("Wait open dialog wrap")
-	public static void waitUntilOpenDialogWrap() {
-		Waiter.untilVisible(DiskPage.getOpenDialogWrap(), "Download wrap was not opened");
-	}
-
-	@Step("Click files from dialog wrap")
-	public static void clickFilesFromDialogWrap() {
-		DiskPage.getClickFilesFromDialogWrap().click();
-	}
-
-	@Step("Click button move from dialog wrap")
-	public static void clickMoveButtonFromDialogWrap() {
+	@Step("Download file into Files")
+	public static void downloadFileInFiles() {
+		DiskPage.getButtonDownloads().click();
+		Waiter.untilVisible(DiskPage.getFile(), "File appeared");
+		Actions action = new Actions(UiDriver.getDriver());
+		action.contextClick(DiskPage.getFile().getElement())
+				.build()
+				.perform();
+		Waiter.presenceOfElement(DiskPage.getFile());
+		DiskPage.getClickMoveButtonFromList().click();
+		Waiter.untilVisible(DiskPage.getOpenDialogWrap(), "Dialog wrap has not opened");
 		DiskPage.getClickMoveButtonFromDialogWrap().click();
+
+
+		Logger.getLogger().info("File upload in Files");
 	}
 
-	//wait надо для попапа
-
-	@Step("Click files from side bar")
-	public static void clickButtonFilesFromSideBar() {
+	@Step("Send file in basket")
+	public static void sendFileInBasket() {
+		Waiter.untilVisible(DiskPage.getFilesFromSideBar(), "Button Files found");
 		DiskPage.getFilesFromSideBar().click();
+		Waiter.untilVisible(DiskPage.getFileInFiles(), "File appeared");
+		Actions action = new Actions(UiDriver.getDriver());
+		action.dragAndDrop(DiskPage.getFileInFiles().getElement(), DiskPage.getBasket().getElement())
+				.build()
+				.perform();
+
+		Logger.getLogger().info("File send in basket");
 	}
-
-	@Step("Move the file in basket")
-	public static void moveFileInBasket() {
-		DiskPage.getDownloadFile().getDrugAndDropButton();
-
-		}
-
-
 
 	public static void sendFileToDiskAndDelete() {
-		waitUntilOpenDiskPage();
-		clickFile();
-		waitUntilVisibleOpenMenuGroup();
-		ClickMoveButtonFromMenuGroup();
-		waitUntilOpenDialogWrap();
-		clickFilesFromDialogWrap();
-		clickMoveButtonFromDialogWrap();
-//		clickButtonFilesFromSideBar();
-//		clickButtonDownloadsFolder();
-//		waitUntilVisibleList();
-//		clickMoveButton();
-
+		downloadFileInFiles();
+		sendFileInBasket();
 	}
 
 

@@ -14,6 +14,4 @@ public class UiDriverHelper {
 	public String getTitle() {
 		return UiDriver.getDriver().getTitle();
 	}
-
-
 }

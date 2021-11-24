@@ -18,7 +18,11 @@ public class Main_tests extends AbstractTest {
 	@Test
 	public void testRun()  {
 		LoginPageHelper.loginWithCreads("automationmary", "project123");
-		UserPageHelper.sendLetter("automationmary@yandex.ru", "project", "test", "D:\\Studyproject\\java\\Homework5.txt");
+
+		UserPageHelper.wtiteAndSendLetter("automationmary@yandex.ru", "project", "test", "D:\\Studyproject\\java\\Homework5.txt");
+
+		UserPageHelper.saveLetterToDisk();
+
 		DiskPageHelper.sendFileToDiskAndDelete();
 
 	}

@@ -7,43 +7,35 @@ import org.openqa.selenium.By;
 
 public class DiskPage {
 
-	private static final By DISK_PAGE_LOCATOR = By.id("#nb-1");
-	private static final By BUTTON_FILES_SIDE_BAR_LOCATOR = By.xpath("//a[@title='Файлы']");
-	//	private static final By BUTTON_DOWNLOAD_FOLDER_LOCATOR = By.xpath("");
-//	private static final By LIST_BOX_LOCATOR = By.className("resources-actions-popup__wrapper");
-//	private static final By BUTTON_MOVE_LIST_LOCATOR = By.xpath("//div[@data-key='item-3']");
+	//Locators for Step "Download file into Files"
+
+	private static final By BUTTON_DOWNLOADS_LOCATOR = By.xpath("//a[contains(@class, 'navigation__link_favorite navigation__link_downloads')]");
+	private static final By FILE_LOCATOR = By.xpath("//div[contains(@class,'listing-item__icon listing-item__icon_type_icon listing-item__icon_resource_file')][1]");
+	private static final By BUTTON_MOVE_LIST_LOCATOR = By.xpath("//div[@data-key='item-4']");
 	private static final By DOWNLOAD_DIALOG_WRAP_LOCATOR = By.className("dialog__wrap");
-	private static final By FILES_DIALOG_WRAP_LOCATOR = By.xpath("//div[@title=\"Файлы\"]");
 	private static final By BUTTON_MOVE_DIALOG_WRAP_LOCATOR = By.xpath("//div[@class='confirmation-dialog__footer']//button[2]");
-	private static final By FILE_LOCATOR = By.xpath("");
-	private static final By MENU_GROUP_LOCATOR = By.xpath("");
-	private static final By MOVE_FILE_LOCATOR = By.xpath("//span[text()='Переместить']");
-	private static final By DOWNLOAD_FILE_LOCATOR = By.xpath("");
-	private static final By BASKET_LOCATOR = By.xpath("");
 
-	public static HtmlElement getOpenDiskPage() {
-		return new HtmlElement(DISK_PAGE_LOCATOR);
+	//Locators for Step "Move file into basket"
+
+	private static final By BUTTON_FILES_SIDE_BAR_LOCATOR = By.xpath("//a[contains(@class,'navigation__link navigation__link_current')]");
+	private static final By FILE_IN_FILES_LOCATOR = By.xpath("//div[contains(@class,'listing-item_type_file')][1]");
+	private static final By BASKET_LOCATOR = By.xpath("//div[contains(@class,'listing-item_type_dir')][last()]");
+
+
+	public static Button getButtonDownloads() {
+		return new Button(BUTTON_DOWNLOADS_LOCATOR);
 	}
 
-	public static Button getClickFile() {
-		return new Button(FILE_LOCATOR);
-
+	public static HtmlElement getFile() {
+		return new HtmlElement(FILE_LOCATOR);
 	}
 
-	public static HtmlElement getOpenMenuGroup() {
-		return new HtmlElement(MENU_GROUP_LOCATOR);
-	}
-
-	public static Button getClickMoveButtonFromMenuGroup() {
-		return new Button(MOVE_FILE_LOCATOR);
+	public static Button getClickMoveButtonFromList() {
+		return new Button(BUTTON_MOVE_LIST_LOCATOR);
 	}
 
 	public static HtmlElement getOpenDialogWrap() {
 		return new HtmlElement(DOWNLOAD_DIALOG_WRAP_LOCATOR);
-	}
-
-	public static Button getClickFilesFromDialogWrap() {
-		return new Button(FILES_DIALOG_WRAP_LOCATOR);
 	}
 
 	public static Button getClickMoveButtonFromDialogWrap() {
@@ -54,26 +46,12 @@ public class DiskPage {
 		return new Button(BUTTON_FILES_SIDE_BAR_LOCATOR);
 	}
 
-	public static HtmlElement getDownloadFile() {
-		return new HtmlElement(DOWNLOAD_FILE_LOCATOR);
+	public static HtmlElement getFileInFiles() {
+		return new HtmlElement(FILE_IN_FILES_LOCATOR);
 	}
 
 	public static HtmlElement getBasket() {
 		return new HtmlElement(BASKET_LOCATOR);
 	}
-
-
-//	public static HtmlElement getDownloadFolder() {
-//		return new HtmlElement(BUTTON_DOWNLOAD_FOLDER_LOCATOR);
-//	}
-//
-//	public static HtmlElement getListBox() {
-//		return new HtmlElement(LIST_BOX_LOCATOR);
-//	}
-//
-//	public static Button getClickMoveButtonFromList() {
-//		return new Button(BUTTON_MOVE_LIST_LOCATOR);
-//	}
-
 
 }
